@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 public class StartMenuController {
     private StartMenuModel model;
     private StartMenuView view;
+    private JButton weiterButton;
+    private JTextField fragenFeld, antwortfeld;
 
     public StartMenuController(StartMenuModel model, StartMenuView view) {
         this.model = model;
@@ -56,15 +58,42 @@ public class StartMenuController {
     private void openQuizWindow() {
         view.close();
         JFrame quizFrame = new JFrame("Quiz");
-        quizFrame.setSize(400, 300);
+        quizFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        quizFrame.setSize(500, 500);
+        quizFrame.setLocationRelativeTo(null);
         quizFrame.setLayout(new BorderLayout());
-        quizFrame.add(new JLabel("Willkommen im Quizfenster", SwingConstants.CENTER), BorderLayout.CENTER);
+
+        quizFrame = new JFrame("Quiz");
+        quizFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        quizFrame.setSize(500, 500);
+        quizFrame.setLocationRelativeTo(null);
+        quizFrame.setLayout(new BorderLayout());
+
+        fragenFeld = new JTextField("Hier steht eine Frage");
+        fragenFeld.setEditable(false);
+        fragenFeld.setHorizontalAlignment(JTextField.CENTER);
+        fragenFeld.setFont(new Font("Arial", Font.BOLD, 18));
+        quizFrame.add(fragenFeld, BorderLayout.NORTH);
+
+        JPanel antwortPanel = new JPanel();
+        antwortPanel.setLayout(new FlowLayout());
+        antwortfeld = new JTextField(20);
+        antwortPanel.add(antwortfeld);
+        quizFrame.add(antwortPanel, BorderLayout.CENTER);
+
+        JPanel weiterPanel = new JPanel();
+        weiterPanel.setLayout(new BorderLayout());
+        weiterButton = new JButton("Weiter");
+        weiterPanel.add(weiterButton, BorderLayout.EAST);
+        quizFrame.add(weiterPanel, BorderLayout.SOUTH);
+
+        quizFrame.setVisible(true);
+
 
         JButton backButton = new JButton("Zurück zur Startseite");
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                quizFrame.dispose();
                 new StartMenuController(model, new StartMenuView());
             }
         });
