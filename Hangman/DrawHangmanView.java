@@ -1,9 +1,7 @@
 package Hangman;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class DrawHangmanView extends JPanel{
@@ -14,25 +12,42 @@ public class DrawHangmanView extends JPanel{
         this.mistakes = mistakes;
     }
 
-    public DrawHangmanView(Hangmanmodel model) {
-        this.model = model;
+    public DrawHangmanView(int mistakes) {
+        this.mistakes = mistakes;
+        this.setPreferredSize(new Dimension(200, 200));
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        model.drawHangman(g, mistakes);
+        drawHangman(g, mistakes);
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Hangman Test");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300, 300);
-
-        DrawHangmanView panel = new DrawHangmanView(new Hangmanmodel("arsch"));
-        frame.add(panel);
-        panel.setMistakes(Integer.parseInt(JOptionPane.showInputDialog("Anzahl der Fehler eingeben (0-11):")));
-        
-        frame.setVisible(true);
+    public void drawHangman(Graphics g, int mistakes) {
+        if (mistakes >= 1) g.drawArc(50, 250, 400, 100, 0, 180); // Halbkreis
+        if (mistakes >= 2) g.drawLine(175, 250, 275, 250); // Boden
+        if (mistakes >= 3) g.drawLine(225, 50, 225, 250); // Pfosten
+        if (mistakes >= 4) g.drawLine(225, 50, 325, 50); // Querbalken
+        if (mistakes >= 5) g.drawLine(325, 50, 325, 80); // Seil
+        if (mistakes >= 6) g.drawOval(305, 80, 40, 40); // Kopf
+        if (mistakes >= 7) g.drawLine(325, 120, 325, 180); // Körper
+        if (mistakes >= 8) g.drawLine(325, 140, 295, 120); // Linker Arm
+        if (mistakes >= 9) g.drawLine(325, 140, 355, 120); // Rechter Arm
+        if (mistakes >= 10) g.drawLine(325, 180, 295, 220); // Linkes Bein
+        if (mistakes >= 11) g.drawLine(325, 180, 355, 220); // Rechtes Bein
     }
+
+    public Hangmanmodel getModel() {
+        return this.model;
+    }
+
+    public void setModel(Hangmanmodel model) {
+        this.model = model;
+    }
+
+    public int getMistakes() {
+        return this.mistakes;
+    }
+
+
 }
