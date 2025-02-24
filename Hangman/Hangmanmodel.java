@@ -37,17 +37,17 @@ public class Hangmanmodel {
     }
 
     public void drawHangman(Graphics g, int mistakes) {
-        if (mistakes == 1) g.drawArc(50, 50, 200, 100, 0, 180); // Halbkreis
-        if (mistakes == 2) g.drawLine(50, 250, 150, 250); // Boden
-        if (mistakes == 3) g.drawLine(100, 50, 100, 250); // Pfosten
-        if (mistakes == 4) g.drawLine(100, 50, 200, 50);  // Querbalken
-        if (mistakes == 5) g.drawLine(200, 50, 200, 80); // Seil
-        if (mistakes == 6) g.drawOval(180, 80, 40, 40); // Kopf
-        if (mistakes == 7) g.drawLine(200, 120, 200, 180); // Körper
-        if (mistakes == 8) g.drawLine(200, 140, 170, 120); // Linker Arm
-        if (mistakes == 9) g.drawLine(200, 140, 230, 120); // Rechter Arm
-        if (mistakes == 10) g.drawLine(200, 180, 170, 220); // Linkes Bein
-        if (mistakes == 11) g.drawLine(200, 180, 230, 220); // Rechtes Bein
+        if (mistakes >= 1) g.drawArc(50, 250, 400, 100, 0, 180); // Halbkreis
+        if (mistakes >= 2) g.drawLine(175, 250, 275, 250); // Boden
+        if (mistakes >= 3) g.drawLine(225, 50, 225, 250); // Pfosten
+        if (mistakes >= 4) g.drawLine(225, 50, 325, 50); // Querbalken
+        if (mistakes >= 5) g.drawLine(325, 50, 325, 80); // Seil
+        if (mistakes >= 6) g.drawOval(305, 80, 40, 40); // Kopf
+        if (mistakes >= 7) g.drawLine(325, 120, 325, 180); // Körper
+        if (mistakes >= 8) g.drawLine(325, 140, 295, 120); // Linker Arm
+        if (mistakes >= 9) g.drawLine(325, 140, 355, 120); // Rechter Arm
+        if (mistakes >= 10) g.drawLine(325, 180, 295, 220); // Linkes Bein
+        if (mistakes >= 11) g.drawLine(325, 180, 355, 220); // Rechtes Bein
     }
 
     public String getRatewort() {
@@ -71,6 +71,7 @@ public class Hangmanmodel {
         System.out.println(t.getAnzeige());
        
         System.out.println(t.fertig());
+        t.drawHangman(null, 2);
     }
 
 }

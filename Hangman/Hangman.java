@@ -4,11 +4,12 @@ import java.awt.*;
 
 
 public class Hangman {
-    private JPanel mainPanel, buttonPanel, eingabePanel;
+    private JPanel buttonPanel, eingabePanel;
     private JButton home;
     private JTextField eingabeBuchstaben, falscheBuchstaben;
     private JLabel titleLabel, uescrhiftEins, ueschriftZwei, Jwort, man, wort;
     private JFrame frame;
+    private DrawHangmanView hang;
 
     public Hangman(){
         frame = new JFrame("Startmenü");
@@ -16,8 +17,8 @@ public class Hangman {
         frame.setSize(700, 500);
         frame.setLayout(new BorderLayout());
 
-        mainPanel = new JPanel(); 
-        mainPanel.setPreferredSize(new Dimension(400, 100));
+        hang = new DrawHangmanView(new Hangmanmodel("arsch")); 
+        hang.setPreferredSize(new Dimension(400, 100));
         buttonPanel = new JPanel(new GridLayout(2,3));
         eingabePanel = new JPanel(new GridLayout(2,2,80,10));
 
@@ -51,7 +52,8 @@ public class Hangman {
         buttonPanel.add(Jwort);
         buttonPanel.add(wort);
 
-        frame.add(mainPanel, BorderLayout.CENTER);
+        hang.setMistakes(Integer.parseInt(JOptionPane.showInputDialog("Anzahl der Fehler eingeben (0-11):")));
+        frame.add(hang, BorderLayout.CENTER);
         frame.add(buttonPanel, BorderLayout.NORTH);
         frame.add(eingabePanel, BorderLayout.SOUTH);
         frame.setLocationRelativeTo(null);
