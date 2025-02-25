@@ -55,7 +55,7 @@ public class VerwaltungsController {
         if (filename == null || filename.isEmpty()) return;
 
         try {
-            model.speichereDatei(DIRECTORY + filename + ".txt");
+            model.speichereDatei(DIRECTORY + filename + ".txt"); //Hier wurde in der model klasse der parameter geändert damit es compilerbar ist
             showInfo("Datei '" + filename + ".txt' erfolgreich gespeichert.");
         } catch (IOException e) {
             showError("Fehler beim Speichern der Datei.");
