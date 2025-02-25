@@ -1,6 +1,13 @@
 package Startmenu;
 import javax.swing.*;
 
+import Hangman.Hangman;
+import Hangman.Hangmancontroller;
+import Hangman.Hangmanmodel;
+import Quiz.QuizController;
+import Quiz.QuizModel;
+import Quiz.QuizView;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,14 +33,16 @@ public class StartMenuController {
         view.getQuizButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                openQuizWindow();
+                view.close();
+                new QuizController(new QuizModel(), new QuizView());
             }
         });
 
         view.getGameButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                openGameWindow();
+                view.close();
+                new Hangmancontroller(new Hangmanmodel("null"), new Hangman());
             }
         });
     }

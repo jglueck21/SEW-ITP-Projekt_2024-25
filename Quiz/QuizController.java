@@ -1,10 +1,12 @@
 package Quiz;
 import javax.swing.*;
 
-import java.awt.*;
+import Startmenu.StartMenuController;
+import Startmenu.StartMenuModel;
+import Startmenu.StartMenuView;
+
 import java.awt.event.*;
-import java.io.*;
-class QuizController {
+public class QuizController {
     private QuizModel model;
     private QuizView view;
 
@@ -14,7 +16,7 @@ class QuizController {
 
         view.addHomeButtonListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                goHome();
+                new StartMenuController(new StartMenuModel(),new StartMenuView());
             }
         });
 

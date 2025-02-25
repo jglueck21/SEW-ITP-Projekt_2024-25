@@ -3,7 +3,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-class QuizView extends JFrame {
+
+public class QuizView extends JFrame {
     private JLabel questionLabel;
     private JTextField answerField;
     private JButton homeButton, nextButton, rerunButton;
@@ -11,7 +12,7 @@ class QuizView extends JFrame {
     public QuizView() {
         setTitle("Quiz Application");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 200);
+        setSize(700, 500);
         setLayout(new BorderLayout(10, 10));
 
         JPanel centerPanel = new JPanel(new GridLayout(2, 1, 10, 10));
@@ -45,6 +46,7 @@ class QuizView extends JFrame {
 
         add(bottomPanel, BorderLayout.SOUTH);
         setVisible(true);
+        this.setLocationRelativeTo(null);
     }
 
     public void setQuestion(String question) {

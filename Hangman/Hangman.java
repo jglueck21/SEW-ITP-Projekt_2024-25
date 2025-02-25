@@ -3,28 +3,27 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class Hangman {
-    private JPanel buttonPanel, eingabePanel, platzhalter;
+public class Hangman extends JFrame{
+    private JPanel buttonPanel, eingabePanel;
     private JButton home, retry;
     private JTextField eingabeBuchstaben, falscheBuchstaben;
     private JLabel titleLabel, uescrhiftEins, ueschriftZwei, Jwort, man, wort;
     private JFrame frame;
     private DrawHangmanView hang;
-    private int mistakes;
 
     public Hangman(){
-        frame = new JFrame("Startmenü");
+        frame = new JFrame("Hangman - Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(700, 500);
         frame.setLayout(new BorderLayout());
 
-        platzhalter = new JPanel();
         hang = new DrawHangmanView(0); 
         hang.setPreferredSize(new Dimension(400, 100));
         buttonPanel = new JPanel(new GridLayout(2,3));
         eingabePanel = new JPanel(new GridLayout(2,2,80,10));
 
         retry = new JButton("Retry");
+        retry.setEnabled(false);
         eingabeBuchstaben = new JTextField();
         falscheBuchstaben = new JTextField();
         falscheBuchstaben.setEnabled(false);
@@ -44,7 +43,7 @@ public class Hangman {
         ueschriftZwei.setFont(new Font("Arial", Font.BOLD, 12));
 
         eingabePanel.add(uescrhiftEins);
-        eingabePanel.add(platzhalter);
+        eingabePanel.add(retry);
         eingabePanel.add(ueschriftZwei);
         eingabePanel.add(eingabeBuchstaben);
         eingabePanel.add(home);
@@ -74,28 +73,31 @@ public class Hangman {
 
     public void win() {
         frame.remove(hang);
+        retry.setEnabled(true);
         JPanel t = new JPanel();
         t.add(new JLabel("Gewonnen", SwingConstants.CENTER));
-        set(retry);
-        frame.add(t);
+        frame.add(t, BorderLayout.CENTER);
     }
 
-    private void set(JButton but) {
-        frame.remove(platzhalter);
-        eingabePanel.add(uescrhiftEins);
-        eingabePanel.add(but);
-        eingabePanel.add(ueschriftZwei);
-        eingabePanel.add(eingabeBuchstaben);
-        eingabePanel.add(home);
-        eingabePanel.add(falscheBuchstaben);
+    public void lose() {
+        frame.remove(hang);
+        retry.setEnabled(true);
+        eingabeBuchstaben.setEnabled(false);
+        JPanel t = new JPanel();
+        t.add(new JLabel("Verloren", SwingConstants.CENTER));
+        frame.add(t, BorderLayout.CENTER);
     }
 
-    public int getMistakes() {
-        return this.mistakes;
+    public void close() {
+        this.frame.dispose();
     }
 
-    public void setMistakes(int mistakes) {
-        this.mistakes = mistakes;
+    public JButton getRetry() {
+        return this.retry;
+    }
+
+    public void setRetry(JButton retry) {
+        this.retry = retry;
     }
 
     public JPanel getButtonPanel() {

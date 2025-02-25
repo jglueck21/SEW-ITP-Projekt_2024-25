@@ -11,7 +11,7 @@ public class StartMenuView {
     public StartMenuView() {
         frame = new JFrame("Startmenü");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 500);
+        frame.setSize(700, 500);
         frame.setLayout(new BorderLayout());
 
         // Titel
@@ -35,6 +35,7 @@ public class StartMenuView {
 
         frame.add(buttonPanel, BorderLayout.SOUTH);
         frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
     }
 
     public JButton getManageButton() {

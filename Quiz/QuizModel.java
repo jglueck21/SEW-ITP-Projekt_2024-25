@@ -1,9 +1,8 @@
 package Quiz;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
 import java.io.*;
-class QuizModel {
+public class QuizModel {
+    
     private String[] questions;
     private String[] answers;
     private int currentIndex;
