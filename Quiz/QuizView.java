@@ -1,8 +1,7 @@
 package Quiz;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
+import javax.swing.*;
 
 public class QuizView extends JFrame {
     private JLabel questionLabel;
@@ -47,6 +46,10 @@ public class QuizView extends JFrame {
         add(bottomPanel, BorderLayout.SOUTH);
         setVisible(true);
         this.setLocationRelativeTo(null);
+    }
+
+    public void close() {
+        this.dispose();
     }
 
     public void setQuestion(String question) {

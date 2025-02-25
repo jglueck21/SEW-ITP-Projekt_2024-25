@@ -1,7 +1,5 @@
 package Hangman;
 
-import java.awt.*;
-
 public class Hangmanmodel {
     
     private String ratewort, falscheBuchstaben = "";
@@ -12,8 +10,13 @@ public class Hangmanmodel {
             this.ratewort = ratewort;
         }
         this.anzeige = new StringBuilder();
+
         for(int i = 0; i < ratewort.length(); i++) {
-            this.anzeige.append(".");
+            if(ratewort.charAt(i) != ' ') {
+                this.anzeige.append(".");
+            } else {
+                this.anzeige.append("-");
+            }
         }
     }
 
@@ -30,11 +33,7 @@ public class Hangmanmodel {
     }
 
     public boolean fertig() {
-        if(this.anzeige.toString().equals(this.ratewort)) {
-            return true;
-        }else {
-            return false;
-        }
+        return this.anzeige.toString().equals(this.ratewort);
     }
 
 
@@ -59,16 +58,6 @@ public class Hangmanmodel {
 
     public StringBuilder getAnzeige() {
         return this.anzeige;
-    }
-
-    public static void main(String[] args) {
-        Hangmanmodel t = new Hangmanmodel("arsch");
-        System.out.println(t.getAnzeige());
-        t.buchstabe('r');
-        System.out.println(t.getAnzeige());
-        t.buchstabe('c');
-        System.out.println(t.getAnzeige());
-       
     }
 
 }

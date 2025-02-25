@@ -1,33 +1,19 @@
 package Hangman;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import Startmenu.StartMenuController;
 import Startmenu.StartMenuModel;
 import Startmenu.StartMenuView;
+import java.awt.event.ActionEvent;
 
 public class Hangmancontroller {
-    private Hangmanmodel model;
-    private Hangman frame;
     private int mistakes = 0;
 
+    @SuppressWarnings("unused")
     public Hangmancontroller(Hangmanmodel model, Hangman frame) {
-        this.model = model;
-        this.frame = frame;
 
         frame.getWort().setText(model.getAnzeige().toString());
-        frame.getEingabeBuchstaben().addActionListener(new Wort());
-        frame.getRetry().addActionListener(new Ret());
-        frame.getHome().addActionListener(new Home());
-
-    }
-
-    private class Wort implements ActionListener{
-        
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if(model.buchstabe(frame.getEingabeBuchstaben().getText().charAt(0)) == false) {
+        frame.addEingabe((ActionEvent e) -> {
+            if(frame.getEingabeBuchstaben() == null || model.buchstabe(frame.getEingabeBuchstaben().getText().charAt(0)) == false) {
                 mistakes++;
                 frame.getFalscheBuchstaben().setText(model.getFalscheBuchstaben());
                 frame.adden(new DrawHangmanView(mistakes));
@@ -37,34 +23,21 @@ public class Hangmancontroller {
 
             if(model.fertig() == true) {
                 frame.win();
-            }else if(mistakes > 12 && model.getAnzeige().toString() != model.getRatewort()) {
-                frame.lose();
+            }else if(mistakes > 12 && !model.getAnzeige().toString().equals(model.getRatewort())) {
+                frame.lose(model);
             }
-        }
-        
-    }
+        });
 
-    private class Ret implements ActionListener{
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
+        frame.addRetry((ActionEvent e) -> {
             frame.close();
-            new Hangmancontroller(new Hangmanmodel("Super duper"), new Hangman());
-        }
-        
-    }
+            Hangmancontroller t = new Hangmancontroller(new Hangmanmodel("Super duper"), new Hangman());
+        });
 
-    private class Home implements ActionListener{
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
+        frame.addHomeButtonListener((ActionEvent e) -> {
             frame.close();
-            new StartMenuController(new StartMenuModel(), new StartMenuView());
-        }
+            StartMenuController t = new StartMenuController(new StartMenuModel(), new StartMenuView());
+        });
+
     }
 
-
-    public static void main(String[] args) {
-        new Hangmancontroller(new Hangmanmodel("arsch"), new Hangman());
-    }
  }

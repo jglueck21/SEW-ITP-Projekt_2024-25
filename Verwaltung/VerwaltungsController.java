@@ -1,9 +1,11 @@
 package Verwaltung;
 
+import Startmenu.StartMenuController;
+import Startmenu.StartMenuModel;
+import Startmenu.StartMenuView;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import javax.swing.JOptionPane;
 
 public class VerwaltungsController {
@@ -31,6 +33,8 @@ public class VerwaltungsController {
         view.getBtnAdd().addActionListener(e -> addRow());
         view.getBtnDelete().addActionListener(e -> deleteRow());
         view.getBtnNewFile().addActionListener(e -> createNewFile());
+        view.getHome().addActionListener(e -> view.close());
+        view.getHome().addActionListener(e -> new StartMenuController(new StartMenuModel(), new StartMenuView()));
     }
 
     private void loadFile() {

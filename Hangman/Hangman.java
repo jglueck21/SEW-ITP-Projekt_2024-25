@@ -1,6 +1,7 @@
 package Hangman;
-import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import javax.swing.*;
 
 
 public class Hangman extends JFrame{
@@ -27,7 +28,7 @@ public class Hangman extends JFrame{
         eingabeBuchstaben = new JTextField();
         falscheBuchstaben = new JTextField();
         falscheBuchstaben.setEnabled(false);
-        wort = new JLabel("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _", SwingConstants.CENTER);
+        wort = new JLabel("", SwingConstants.CENTER);
         wort.setEnabled(false);
         Jwort = new JLabel("Wort:",SwingConstants.CENTER);
         Jwort.setFont(new Font("Arial",Font.BOLD,12));
@@ -60,7 +61,6 @@ public class Hangman extends JFrame{
         frame.setLocationRelativeTo(null);
     
         frame.setVisible(true);
-
     }
 
     public void adden(DrawHangmanView view) {
@@ -72,20 +72,29 @@ public class Hangman extends JFrame{
     }
 
     public void win() {
-        frame.remove(hang);
         retry.setEnabled(true);
-        JPanel t = new JPanel();
-        t.add(new JLabel("Gewonnen", SwingConstants.CENTER));
-        frame.add(t, BorderLayout.CENTER);
+        this.titleLabel.setText("Gewo");
+        this.man.setText("nnen");
     }
 
-    public void lose() {
-        frame.remove(hang);
+    public void lose(Hangmanmodel model) {
         retry.setEnabled(true);
+        this.wort.setText(model.getRatewort());
         eingabeBuchstaben.setEnabled(false);
-        JPanel t = new JPanel();
-        t.add(new JLabel("Verloren", SwingConstants.CENTER));
-        frame.add(t, BorderLayout.CENTER);
+        this.titleLabel.setText("Verl");
+        this.man.setText("oren");
+    }
+
+    public void addHomeButtonListener(ActionListener listener) {
+        home.addActionListener(listener);
+    }
+
+    public void addEingabe(ActionListener listener) {
+        eingabeBuchstaben.addActionListener(listener);
+    }
+
+    public void addRetry(ActionListener listener) {
+        retry.addActionListener(listener);
     }
 
     public void close() {
@@ -202,9 +211,5 @@ public class Hangman extends JFrame{
 
     public void setHang(DrawHangmanView hang) {
         this.hang = hang;
-    }
-
-    public static void main(String[] args) {
-        new Hangman();
     }
 }
