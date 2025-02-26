@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class VerwaltungsController {
     private VerwaltungsView view;
@@ -51,25 +52,63 @@ public class VerwaltungsController {
     }
 
     private void saveFile() {
+    DefaultTableModel tableModel = view.getTableModel();
+    
+    // Alle GUI-Daten durchgehen und ins Model übertragen
+    for (int i = 0; i < tableModel.getRowCount(); i++) {
+        String frage = (String) tableModel.getValueAt(i, 0);
+        String antwort = (String) tableModel.getValueAt(i, 1);
+
+        if (frage != null && antwort != null && !frage.trim().isEmpty() && !antwort.trim().isEmpty()) {
+            boolean exists = false;
+
+            // Prüfen, ob die Frage bereits in der Liste existiert
+            for (String[] f : model.getFragenListe()) {
+                if (f[0].equals(frage) && f[1].equals(antwort)) {
+                    exists = true;
+                    break;
+                }
+            }
+
+            // Nur hinzufügen, wenn sie noch nicht existiert
+            if (!exists) {
+                model.addFrage(frage.trim(), antwort.trim());
+            }
+        }
+    }
+
+    // Falls noch keine Datei existiert, den Benutzer nach einem Namen fragen
+    if (model.getAktuelleDatei() == null) {
         String filename = askForFilename();
         if (filename == null || filename.isEmpty()) return;
-
-        try {
-            model.speichereDatei(DIRECTORY + filename + ".txt");
-            showInfo("Datei '" + filename + ".txt' erfolgreich gespeichert.");
-        } catch (IOException e) {
-            showError("Fehler beim Speichern der Datei.");
-        }
+        
+        model.setAktuelleDatei(new File(DIRECTORY + filename + ".txt"));
     }
+
+    try {
+        model.speichereDatei();
+        showInfo("Datei erfolgreich gespeichert.");
+    } catch (IOException e) {
+        showError("Fehler beim Speichern der Datei.");
+    }
+}
+
+    
 
     private void addRow() {
-        if (model.getFragenListe().size() < 10) {
-            model.addFrage(view.getTxtFrage().getText(), view.getTxtAntwort().getText());
-            updateViewFromModel();
-        } else {
-            showWarning("Maximal 10 Fragen erlaubt.");
-        }
+        String frage = view.getTxtFrage().getText().trim();
+        String antwort = view.getTxtAntwort().getText().trim();
+        
+    
+        model.addFrage(frage, antwort); // Speichert die Frage in `fragenListe`
+        updateViewFromModel(); // Aktualisiert die GUI
+    
+        System.out.println("DEBUG: Frage hinzugefügt -> " + frage + " | Antwort -> " + antwort); // Debug-Print
+    
+        view.getTxtFrage().setText(""); // Leert die Eingabefelder
+        view.getTxtAntwort().setText("");
     }
+    
 
     private void deleteRow() {
         int selectedRow = view.getTable().getSelectedRow();

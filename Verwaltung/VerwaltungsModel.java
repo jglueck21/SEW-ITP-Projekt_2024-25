@@ -38,13 +38,26 @@ public class VerwaltungsModel {
         if (aktuelleDatei == null) {
             throw new IOException("Keine Datei geladen, Speichern nicht möglich.");
         }
+    
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(aktuelleDatei))) {
+            if (fragenListe.isEmpty()) {
+                throw new IOException("Fehler: Fragenliste ist leer!"); // Debug-Fehlermeldung
+            }
+    
             for (int i = 0; i < fragenListe.size(); i++) {
-                writer.write((i + 1) + "- " + fragenListe.get(i)[0] + "\n");
-                writer.write(fragenListe.get(i)[1] + "\n");
+                String frage = fragenListe.get(i)[0];
+                String antwort = fragenListe.get(i)[1];
+    
+                System.out.println("DEBUG: Speichere -> " + (i + 1) + "- " + frage + " | " + antwort); // Debug-Print
+    
+                writer.write((i + 1) + "- " + frage + "\n");
+                writer.write(antwort + "\n");
             }
         }
     }
+    
+    
+    
 
     public List<String[]> getFragenListe() {
         return fragenListe;
@@ -54,8 +67,15 @@ public class VerwaltungsModel {
         if (fragenListe.size() >= 10) {
             throw new IllegalStateException("Maximale Anzahl von 10 Fragen erreicht.");
         }
-        fragenListe.add(new String[] { frage, antwort });
+        fragenListe.add(new String[] { frage.trim(), antwort.trim() });
+    
+        // Debug-Print
+        System.out.println("Aktuelle Fragenliste:");
+        for (String[] f : fragenListe) {
+            System.out.println("Frage: " + f[0] + ", Antwort: " + f[1]);
+        }
     }
+    
 
     public void removeFrage(int index) {
         if (index < 0 || index >= fragenListe.size()) {
@@ -63,4 +83,12 @@ public class VerwaltungsModel {
         }
         fragenListe.remove(index);
     }
+
+    public File getAktuelleDatei() {
+        return aktuelleDatei;
+    }
+    
+    public void setAktuelleDatei(File datei) {
+        this.aktuelleDatei = datei;
+    }    
 }
