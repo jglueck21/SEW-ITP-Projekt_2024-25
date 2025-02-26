@@ -1,43 +1,82 @@
 package Quiz;
-import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
-public class QuizView {
-    private JFrame frame;
-    private JButton weiterButton;
-    private JTextField fragenFeld, antwortfeld;
+public class QuizView extends JFrame {
+    private JLabel questionLabel;
+    private JTextField answerField;
+    private JButton homeButton, nextButton, rerunButton;
 
     public QuizView() {
-        frame = new JFrame("Quiz");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 500);
-        frame.setLocationRelativeTo(null);
-        frame.setLayout(new BorderLayout());
+        setTitle("Quiz Application");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(700, 500);
+        setLayout(new BorderLayout(10, 10));
 
-        fragenFeld = new JTextField("Hier steht eine Frage");
-        fragenFeld.setEditable(false);
-        fragenFeld.setHorizontalAlignment(JTextField.CENTER);
-        fragenFeld.setFont(new Font("Arial", Font.BOLD, 18));
-        frame.add(fragenFeld, BorderLayout.NORTH);
+        JPanel centerPanel = new JPanel(new GridLayout(2, 1, 10, 10));
+        questionLabel = new JLabel("", SwingConstants.CENTER);
+        questionLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        centerPanel.add(questionLabel);
 
-        JPanel antwortPanel = new JPanel();
-        antwortPanel.setLayout(new FlowLayout());
-        antwortfeld = new JTextField(20);
-        antwortPanel.add(antwortfeld);
-        frame.add(antwortPanel, BorderLayout.CENTER);
+        answerField = new JTextField();
+        answerField.setFont(new Font("Arial", Font.PLAIN, 18));
+        centerPanel.add(answerField);
+        add(centerPanel, BorderLayout.CENTER);
 
-        JPanel weiterPanel = new JPanel();
-        weiterPanel.setLayout(new BorderLayout());
-        weiterButton = new JButton("Weiter");
-        weiterPanel.add(weiterButton, BorderLayout.EAST);
-        frame.add(weiterPanel, BorderLayout.SOUTH);
+        JPanel bottomPanel = new JPanel(new BorderLayout());
+        JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        homeButton = new JButton("Home");
+        homeButton.setFont(new Font("Arial", Font.BOLD, 14));
+        leftPanel.add(homeButton);
+        bottomPanel.add(leftPanel, BorderLayout.WEST);
 
-        frame.setVisible(true);
+        JPanel centerButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        rerunButton = new JButton("Rerun Quiz");
+        rerunButton.setFont(new Font("Arial", Font.BOLD, 14));
+        centerButtonPanel.add(rerunButton);
+        bottomPanel.add(centerButtonPanel, BorderLayout.CENTER);
+
+        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        nextButton = new JButton("Next Question");
+        nextButton.setFont(new Font("Arial", Font.BOLD, 14));
+        rightPanel.add(nextButton);
+        bottomPanel.add(rightPanel, BorderLayout.EAST);
+
+        add(bottomPanel, BorderLayout.SOUTH);
+        setVisible(true);
+        this.setLocationRelativeTo(null);
     }
 
+    public void close() {
+        this.dispose();
+    }
+
+    public void setQuestion(String question) {
+        questionLabel.setText(question);
+    }
+
+    public String getAnswer() {
+        return answerField.getText().trim();
+    }
+
+    public void clearAnswer() {
+        answerField.setText("");
+    }
+
+    public void addHomeButtonListener(ActionListener listener) {
+        homeButton.addActionListener(listener);
+    }
+
+    public void addNextButtonListener(ActionListener listener) {
+        nextButton.addActionListener(listener);
+    }
+
+    public void addRerunButtonListener(ActionListener listener) {
+        rerunButton.addActionListener(listener);
+    }
     public static void main(String[] args) {
         QuizView quizView = new QuizView();
-
+        quizView.setVisible(true);
     }
-
 }

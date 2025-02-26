@@ -2,7 +2,6 @@ package Verwaltung;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,18 +14,19 @@ public class VerwaltungsView {
     private JFrame frame;
     private JTable table;
     private DefaultTableModel tableModel;
-    private JButton btnLoad, btnSave, btnAdd, btnDelete, btnNewFile;
+    private JButton btnLoad, btnSave, btnAdd, btnDelete, btnNewFile,home;
     private JTextField txtFrage, txtAntwort;
 
     public VerwaltungsView() {
         frame = new JFrame("Fragenverwaltung");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 400);
+        frame.setSize(700, 500);
 
         String[] columnNames = { "Frage", "Antwort" };
         tableModel = new DefaultTableModel(columnNames, 0);
         table = new JTable(tableModel);
 
+        home = new JButton("Home");
         btnLoad = new JButton("Datei laden");
         btnSave = new JButton("Speichern");
         btnAdd = new JButton("Hinzufügen");
@@ -46,12 +46,18 @@ public class VerwaltungsView {
         buttonPanel.add(btnAdd);
         buttonPanel.add(btnDelete);
         buttonPanel.add(btnNewFile);
+        buttonPanel.add(home);
 
         frame.add(new JScrollPane(table), BorderLayout.CENTER);
         frame.add(inputPanel, BorderLayout.NORTH);
         frame.add(buttonPanel, BorderLayout.SOUTH);
 
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    }
+
+    public void close() {
+        this.frame.dispose();
     }
 
     public JFrame getFrame() {
@@ -93,4 +99,13 @@ public class VerwaltungsView {
     public JTextField getTxtAntwort() {
         return txtAntwort;
     }
+
+    public JButton getHome() {
+        return home;
+    }
+
+    public void setHome(JButton home) {
+        this.home = home;
+    }
+
 }

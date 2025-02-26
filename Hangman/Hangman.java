@@ -1,30 +1,34 @@
 package Hangman;
-import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import javax.swing.*;
 
 
-public class Hangman {
-    private JPanel mainPanel, buttonPanel, eingabePanel;
-    private JButton home;
+public class Hangman extends JFrame{
+    private JPanel buttonPanel, eingabePanel;
+    private JButton home, retry;
     private JTextField eingabeBuchstaben, falscheBuchstaben;
     private JLabel titleLabel, uescrhiftEins, ueschriftZwei, Jwort, man, wort;
     private JFrame frame;
+    private DrawHangmanView hang;
 
     public Hangman(){
-        frame = new JFrame("Startmenü");
+        frame = new JFrame("Hangman - Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(700, 500);
         frame.setLayout(new BorderLayout());
 
-        mainPanel = new JPanel(); 
-        mainPanel.setPreferredSize(new Dimension(400, 100));
+        hang = new DrawHangmanView(0); 
+        hang.setPreferredSize(new Dimension(400, 100));
         buttonPanel = new JPanel(new GridLayout(2,3));
         eingabePanel = new JPanel(new GridLayout(2,2,80,10));
 
+        retry = new JButton("Retry");
+        retry.setEnabled(false);
         eingabeBuchstaben = new JTextField();
         falscheBuchstaben = new JTextField();
         falscheBuchstaben.setEnabled(false);
-        wort = new JLabel("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _", SwingConstants.CENTER);
+        wort = new JLabel("", SwingConstants.CENTER);
         wort.setEnabled(false);
         Jwort = new JLabel("Wort:",SwingConstants.CENTER);
         Jwort.setFont(new Font("Arial",Font.BOLD,12));
@@ -40,7 +44,7 @@ public class Hangman {
         ueschriftZwei.setFont(new Font("Arial", Font.BOLD, 12));
 
         eingabePanel.add(uescrhiftEins);
-        eingabePanel.add(new JPanel());
+        eingabePanel.add(retry);
         eingabePanel.add(ueschriftZwei);
         eingabePanel.add(eingabeBuchstaben);
         eingabePanel.add(home);
@@ -51,7 +55,7 @@ public class Hangman {
         buttonPanel.add(Jwort);
         buttonPanel.add(wort);
 
-        frame.add(mainPanel, BorderLayout.CENTER);
+        frame.add(hang, BorderLayout.CENTER);
         frame.add(buttonPanel, BorderLayout.NORTH);
         frame.add(eingabePanel, BorderLayout.SOUTH);
         frame.setLocationRelativeTo(null);
@@ -59,7 +63,153 @@ public class Hangman {
         frame.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new Hangman();
+    public void adden(DrawHangmanView view) {
+        frame.remove(hang);
+        this.hang = view;
+        frame.add(hang, BorderLayout.CENTER);
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    public void win() {
+        retry.setEnabled(true);
+        this.titleLabel.setText("Gewo");
+        this.man.setText("nnen");
+    }
+
+    public void lose(Hangmanmodel model) {
+        retry.setEnabled(true);
+        this.wort.setText(model.getRatewort());
+        eingabeBuchstaben.setEnabled(false);
+        this.titleLabel.setText("Verl");
+        this.man.setText("oren");
+    }
+
+    public void addHomeButtonListener(ActionListener listener) {
+        home.addActionListener(listener);
+    }
+
+    public void addEingabe(ActionListener listener) {
+        eingabeBuchstaben.addActionListener(listener);
+    }
+
+    public void addRetry(ActionListener listener) {
+        retry.addActionListener(listener);
+    }
+
+    public void close() {
+        this.frame.dispose();
+    }
+
+    public JButton getRetry() {
+        return this.retry;
+    }
+
+    public void setRetry(JButton retry) {
+        this.retry = retry;
+    }
+
+    public JPanel getButtonPanel() {
+        return this.buttonPanel;
+    }
+
+    public void setButtonPanel(JPanel buttonPanel) {
+        this.buttonPanel = buttonPanel;
+    }
+
+    public JPanel getEingabePanel() {
+        return this.eingabePanel;
+    }
+
+    public void setEingabePanel(JPanel eingabePanel) {
+        this.eingabePanel = eingabePanel;
+    }
+
+    public JButton getHome() {
+        return this.home;
+    }
+
+    public void setHome(JButton home) {
+        this.home = home;
+    }
+
+    public JTextField getEingabeBuchstaben() {
+        return this.eingabeBuchstaben;
+    }
+
+    public void setEingabeBuchstaben(JTextField eingabeBuchstaben) {
+        this.eingabeBuchstaben = eingabeBuchstaben;
+    }
+
+    public JTextField getFalscheBuchstaben() {
+        return this.falscheBuchstaben;
+    }
+
+    public void setFalscheBuchstaben(JTextField falscheBuchstaben) {
+        this.falscheBuchstaben = falscheBuchstaben;
+    }
+
+    public JLabel getTitleLabel() {
+        return this.titleLabel;
+    }
+
+    public void setTitleLabel(JLabel titleLabel) {
+        this.titleLabel = titleLabel;
+    }
+
+    public JLabel getUescrhiftEins() {
+        return this.uescrhiftEins;
+    }
+
+    public void setUescrhiftEins(JLabel uescrhiftEins) {
+        this.uescrhiftEins = uescrhiftEins;
+    }
+
+    public JLabel getUeschriftZwei() {
+        return this.ueschriftZwei;
+    }
+
+    public void setUeschriftZwei(JLabel ueschriftZwei) {
+        this.ueschriftZwei = ueschriftZwei;
+    }
+
+    public JLabel getJwort() {
+        return this.Jwort;
+    }
+
+    public void setJwort(JLabel Jwort) {
+        this.Jwort = Jwort;
+    }
+
+    public JLabel getMan() {
+        return this.man;
+    }
+
+    public void setMan(JLabel man) {
+        this.man = man;
+    }
+
+    public JLabel getWort() {
+        return this.wort;
+    }
+
+    public void setWort(JLabel wort) {
+        this.wort = wort;
+    }
+
+    public JFrame getFrame() {
+        return this.frame;
+    }
+
+    public void setFrame(JFrame frame) {
+        this.frame = frame;
+    }
+
+    public DrawHangmanView getHang() {
+        return this.hang;
+    }
+
+    public void setHang(DrawHangmanView hang) {
+        this.hang = hang;
     }
 }

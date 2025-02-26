@@ -1,10 +1,8 @@
 package Hangman;
 
-import java.awt.*;
-
 public class Hangmanmodel {
     
-    private String ratewort;
+    private String ratewort, falscheBuchstaben = "";
     private StringBuilder anzeige;
     
     public Hangmanmodel(String ratewort) {
@@ -12,8 +10,13 @@ public class Hangmanmodel {
             this.ratewort = ratewort;
         }
         this.anzeige = new StringBuilder();
+
         for(int i = 0; i < ratewort.length(); i++) {
-            this.anzeige.append("-");
+            if(ratewort.charAt(i) != ' ') {
+                this.anzeige.append(".");
+            } else {
+                this.anzeige.append("-");
+            }
         }
     }
 
@@ -25,29 +28,24 @@ public class Hangmanmodel {
                 ret = true;
             }
         }
+        this.falscheBuchstaben += a;
         return ret;
     }
 
     public boolean fertig() {
-        if(this.anzeige.toString().equals(this.ratewort)) {
-            return true;
-        }else {
-            return false;
-        }
+        return this.anzeige.toString().equals(this.ratewort);
     }
 
-    public void drawHangman(Graphics g, int mistakes) {
-        if (mistakes == 1) g.drawArc(50, 50, 200, 100, 0, 180); // Halbkreis
-        if (mistakes == 2) g.drawLine(50, 250, 150, 250); // Boden
-        if (mistakes == 3) g.drawLine(100, 50, 100, 250); // Pfosten
-        if (mistakes == 4) g.drawLine(100, 50, 200, 50);  // Querbalken
-        if (mistakes == 5) g.drawLine(200, 50, 200, 80); // Seil
-        if (mistakes == 6) g.drawOval(180, 80, 40, 40); // Kopf
-        if (mistakes == 7) g.drawLine(200, 120, 200, 180); // Körper
-        if (mistakes == 8) g.drawLine(200, 140, 170, 120); // Linker Arm
-        if (mistakes == 9) g.drawLine(200, 140, 230, 120); // Rechter Arm
-        if (mistakes == 10) g.drawLine(200, 180, 170, 220); // Linkes Bein
-        if (mistakes == 11) g.drawLine(200, 180, 230, 220); // Rechtes Bein
+
+    public String getFalscheBuchstaben() {
+        return this.falscheBuchstaben;
+    }
+
+    public void setFalscheBuchstaben(String falscheBuchstaben) {
+        this.falscheBuchstaben = falscheBuchstaben;
+    }
+    public void setAnzeige(StringBuilder anzeige) {
+        this.anzeige = anzeige;
     }
 
     public String getRatewort() {
@@ -60,17 +58,6 @@ public class Hangmanmodel {
 
     public StringBuilder getAnzeige() {
         return this.anzeige;
-    }
-
-    public static void main(String[] args) {
-        Hangmanmodel t = new Hangmanmodel("arsch");
-        System.out.println(t.getAnzeige());
-        t.buchstabe('r');
-        System.out.println(t.getAnzeige());
-        t.buchstabe('c');
-        System.out.println(t.getAnzeige());
-       
-        System.out.println(t.fertig());
     }
 
 }

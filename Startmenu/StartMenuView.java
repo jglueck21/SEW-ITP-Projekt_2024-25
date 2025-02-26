@@ -1,6 +1,6 @@
 package Startmenu;
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class StartMenuView {
     private JFrame frame;
@@ -11,7 +11,7 @@ public class StartMenuView {
     public StartMenuView() {
         frame = new JFrame("Startmenü");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 500);
+        frame.setSize(700, 500);
         frame.setLayout(new BorderLayout());
 
         // Titel
@@ -33,6 +33,7 @@ public class StartMenuView {
         buttonPanel.add(quizButton);
         buttonPanel.add(gameButton);
 
+        frame.setLocationRelativeTo(null);
         frame.add(buttonPanel, BorderLayout.SOUTH);
         frame.setVisible(true);
     }

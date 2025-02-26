@@ -1,0 +1,20 @@
+      1- Wie deklariert man eine Variable vom Typ int in Java?
+      int
+      2- Mit welchem Schlüsselwort definiert man eine Klasse in Java?
+      class
+      3- Wie gibt man Text auf der Konsole aus?
+      System.out.println
+      4- Welches Schlüsselwort wird verwendet, um eine Methode zu erstellen?
+      void
+      5- Wie erstellt man eine for-Schleife?
+      for
+      6- Welches Paket muss importiert werden, um GUI-Komponenten zu verwenden?
+      javax.swing
+      7- Mit welchem Schlüsselwort erzeugt man eine Instanz einer Klasse?
+      new
+      8- Wie definiert man eine Methode, die einen int zurückgibt?
+      int
+      9- Was ist das Schlüsselwort, um eine Methode zu überschreiben?
+      @Override
+      10- Welches Schlüsselwort beendet die Ausführung einer Methode und gibt einen Wert zurück?
+      return
