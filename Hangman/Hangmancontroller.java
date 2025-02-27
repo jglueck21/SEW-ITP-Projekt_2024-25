@@ -23,14 +23,14 @@ public class Hangmancontroller {
 
             if(model.fertig() == true) {
                 frame.win();
-            }else if(mistakes > 12 && !model.getAnzeige().toString().equals(model.getRatewort())) {
+            }else if(mistakes > 10 && !model.getAnzeige().toString().equals(model.getRatewort())) {
                 frame.lose(model);
             }
         });
 
         frame.addRetry((ActionEvent e) -> {
             frame.close();
-            Hangmancontroller t = new Hangmancontroller(new Hangmanmodel("Super duper"), new Hangman());
+            Hangmancontroller t = new Hangmancontroller(new Hangmanmodel(), new Hangman());
         });
 
         frame.addHomeButtonListener((ActionEvent e) -> {

@@ -1,14 +1,17 @@
 package Hangman;
 
+import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class Hangmanmodel {
     
     private String ratewort, falscheBuchstaben = "";
     private StringBuilder anzeige;
     
-    public Hangmanmodel(String ratewort) {
-        if(ratewort != null) {
-            this.ratewort = ratewort;
-        }
+    public Hangmanmodel() {
+        this.ratewort = this.zuFallsAntwort();
         this.anzeige = new StringBuilder();
 
         for(int i = 0; i < ratewort.length(); i++) {
@@ -23,13 +26,32 @@ public class Hangmanmodel {
     public boolean buchstabe(char a) {
         boolean ret = false;
         for(int i = 0; i < ratewort.length(); i++) {
-            if(a == this.ratewort.charAt(i)) {
-                this.anzeige.setCharAt(i, a) ;
+            char temp = this.ratewort.charAt(i);
+            if(a == Character.toLowerCase(temp)) {
+                this.anzeige.setCharAt(i, temp) ;
                 ret = true;
             }
         }
         this.falscheBuchstaben += a;
         return ret;
+    }
+
+    private String zuFallsAntwort() {
+        String[] answers = new String[10];
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/questions.txt"))) {
+
+            for (int i = 0; i < 10; i++) {
+                String line = reader.readLine();
+                line = reader.readLine();
+                if (line == null) throw new IOException("Unzureichende Antwortenanzahl.");
+                answers[i] = line.trim();
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Fehler beim Laden der Fragen: " + e.getMessage());
+        }
+
+        int random = (int) (Math.random() * 9);
+        return answers[random];
     }
 
     public boolean fertig() {

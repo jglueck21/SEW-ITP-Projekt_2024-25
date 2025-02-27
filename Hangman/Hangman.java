@@ -74,7 +74,9 @@ public class Hangman extends JFrame{
     public void win() {
         retry.setEnabled(true);
         this.titleLabel.setText("Gewo");
+        this.titleLabel.setForeground(Color.GREEN);
         this.man.setText("nnen");
+        this.man.setForeground(Color.GREEN);
     }
 
     public void lose(Hangmanmodel model) {
@@ -82,7 +84,9 @@ public class Hangman extends JFrame{
         this.wort.setText(model.getRatewort());
         eingabeBuchstaben.setEnabled(false);
         this.titleLabel.setText("Verl");
+        this.titleLabel.setForeground(Color.RED);
         this.man.setText("oren");
+        this.man.setForeground(Color.RED);
     }
 
     public void addHomeButtonListener(ActionListener listener) {

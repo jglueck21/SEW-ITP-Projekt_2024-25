@@ -46,7 +46,7 @@ public class StartMenuController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 view.close();
-                new Hangmancontroller(new Hangmanmodel("null"), new Hangman());
+                new Hangmancontroller(new Hangmanmodel(), new Hangman());
             }
         });
     }

@@ -34,7 +34,7 @@ public class VerwaltungsModel {
         }
     }
 
-    public void speichereDatei(String string) throws IOException {
+    public void speichereDatei() throws IOException {
         if (aktuelleDatei == null) {
             throw new IOException("Keine Datei geladen, Speichern nicht möglich.");
         }
